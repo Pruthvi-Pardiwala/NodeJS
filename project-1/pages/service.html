@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Services</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #d3d3d3, #a9a9a9);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .service-container {
+            width: 100%;
+            max-width: 1000px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #212121;
+            font-size: 50px;
+            margin-bottom: 40px;
+        }
+
+        .service-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+        }
+
+        .card h2 {
+            color: #444;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .home-btn {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 12px 25px;
+            background-color: #212121;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .home-btn:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="service-container">
+        <h1>Our Services</h1>
+
+        <div class="service-box">
+
+            <div class="card">
+                <h2>Web Design</h2>
+                <p>
+                    We create modern, responsive, and attractive website
+                    designs for all types of businesses.
+                </p>
+            </div>
+
+            <div class="card">
+                <h2>Web Development</h2>
+                <p>
+                    Build fast and secure web applications using
+                    HTML, CSS, JavaScript, Node.js, and more.
+                </p>
+            </div>
+
+            <div class="card">
+                <h2>UI/UX Design</h2>
+                <p>
+                    Improve user experience with clean layouts,
+                    smooth navigation, and creative interfaces.
+                </p>
+            </div>
+
+        </div>
+
+        <a href="/" class="home-btn">Back to Home</a>
+    </div>
+</body>
+</html>
