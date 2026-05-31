@@ -1,0 +1,140 @@
+<%- include('partials/header') %>
+
+<div class="page-wrapper">
+  <div class="container-fluid px-4 py-4">
+
+    <% if (alert) { %>
+    <div class="alert alert-<%= alertType %> auto-alert alert-dismissible fade show d-flex align-items-center gap-2" role="alert">
+      <% if (alertType === 'success') { %><i class="bi bi-check-circle-fill"></i>
+      <% } else if (alertType === 'danger') { %><i class="bi bi-x-circle-fill"></i>
+      <% } else { %><i class="bi bi-info-circle-fill"></i><% } %>
+      <span><%= alert %></span>
+      <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
+    </div>
+    <% } %>
+
+    <div class="page-header d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <h1 class="page-title">Dashboard</h1>
+        <p class="page-subtitle">Manage and track your tasks in real-time</p>
+      </div>
+      <a href="/add" class="btn btn-primary-custom">
+        <i class="bi bi-plus-lg me-2"></i>Add New Task
+      </a>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-md-3">
+        <div class="stat-card stat-total">
+          <div class="stat-icon"><i class="bi bi-list-task"></i></div>
+          <div class="stat-value"><%= stats.total %></div>
+          <div class="stat-label">Total Tasks</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card stat-pending">
+          <div class="stat-icon"><i class="bi bi-hourglass-split"></i></div>
+          <div class="stat-value"><%= stats.pending %></div>
+          <div class="stat-label">Pending</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card stat-progress">
+          <div class="stat-icon"><i class="bi bi-arrow-repeat"></i></div>
+          <div class="stat-value"><%= stats.inProgress %></div>
+          <div class="stat-label">In Progress</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card stat-done">
+          <div class="stat-icon"><i class="bi bi-patch-check"></i></div>
+          <div class="stat-value"><%= stats.completed %></div>
+          <div class="stat-label">Completed</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-card">
+      <div class="table-card-header d-flex justify-content-between align-items-center">
+        <div>
+          <h5 class="table-card-title mb-0">All Tasks</h5>
+          <span class="table-card-sub"><%= tasks.length %> task<%= tasks.length !== 1 ? 's' : '' %> total</span>
+        </div>
+        <div class="d-flex gap-2 align-items-center">
+          <span class="legend-dot pending-dot"></span><small>Pending</small>
+          <span class="legend-dot progress-dot ms-2"></span><small>In Progress</small>
+          <span class="legend-dot done-dot ms-2"></span><small>Completed</small>
+        </div>
+      </div>
+
+      <% if (tasks.length === 0) { %>
+      <div class="empty-state">
+        <i class="bi bi-inbox"></i>
+        <p>No tasks yet. <a href="/add">Add your first task →</a></p>
+      </div>
+      <% } else { %>
+      <div class="table-responsive">
+        <table class="table task-table mb-0">
+          <thead>
+            <tr>
+              <th>#ID</th>
+              <th>Title</th>
+              <th class="d-none d-md-table-cell">Description</th>
+              <th>Priority</th>
+              <th>Status</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% tasks.forEach(task => { %>
+            <tr class="task-row">
+              <td><span class="task-id">#<%= task.id.toString().padStart(3, '0') %></span></td>
+              <td><span class="task-title"><%= task.title %></span></td>
+              <td class="d-none d-md-table-cell">
+                <span class="task-desc"><%= task.description || '—' %></span>
+              </td>
+              <td>
+                <span class="badge priority-badge priority-<%= task.priority.toLowerCase() %>">
+                  <% if (task.priority === 'High') { %><i class="bi bi-arrow-up-short"></i>
+                  <% } else if (task.priority === 'Low') { %><i class="bi bi-arrow-down-short"></i>
+                  <% } else { %><i class="bi bi-dash"></i><% } %>
+                  <%= task.priority %>
+                </span>
+              </td>
+              <td>
+                <span class="badge status-badge status-<%= task.status.toLowerCase().replace(' ', '-') %>">
+                  <% if (task.status === 'Completed') { %><i class="bi bi-check2"></i>
+                  <% } else if (task.status === 'In Progress') { %><i class="bi bi-arrow-repeat"></i>
+                  <% } else { %><i class="bi bi-clock"></i><% } %>
+                  <%= task.status %>
+                </span>
+              </td>
+              <td>
+                <div class="action-group">
+                  <form action="/status/<%= task.id %>" method="POST" class="d-inline">
+                    <button type="submit" class="btn btn-action btn-status" title="Advance Status">
+                      <i class="bi bi-arrow-clockwise"></i>
+                    </button>
+                  </form>
+                  <a href="/edit/<%= task.id %>" class="btn btn-action btn-edit" title="Edit Task">
+                    <i class="bi bi-pencil"></i>
+                  </a>
+                  <form action="/delete/<%= task.id %>" method="POST" class="d-inline btn-delete-form">
+                    <button type="submit" class="btn btn-action btn-delete" title="Delete Task">
+                      <i class="bi bi-trash3"></i>
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <% } %>
+    </div>
+
+  </div>
+</div>
+
+<%- include('partials/footer') %>

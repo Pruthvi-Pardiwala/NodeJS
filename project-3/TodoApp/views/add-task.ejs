@@ -1,0 +1,93 @@
+<%- include('partials/header') %>
+
+<div class="page-wrapper">
+  <div class="container-fluid px-4 py-4">
+
+    <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb custom-breadcrumb">
+        <li class="breadcrumb-item"><a href="/"><i class="bi bi-grid-1x2 me-1"></i>Dashboard</a></li>
+        <li class="breadcrumb-item active">Add Task</li>
+      </ol>
+    </nav>
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6">
+
+        <div class="form-card">
+          <div class="form-card-header">
+            <div class="form-header-icon"><i class="bi bi-plus-circle"></i></div>
+            <div>
+              <h4 class="form-card-title">Create New Task</h4>
+              <p class="form-card-sub">Fill in the details to add a task</p>
+            </div>
+          </div>
+
+          <% if (error) { %>
+          <div class="alert alert-danger d-flex align-items-center gap-2 mx-4">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <span><%= error %></span>
+          </div>
+          <% } %>
+
+          <form action="/add" method="POST" class="form-body">
+
+            <div class="mb-4">
+              <label class="form-label-custom" for="title">
+                <i class="bi bi-type me-1"></i>Task Title <span class="required-star">*</span>
+              </label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                class="form-control form-control-custom"
+                placeholder="e.g. Review pull requests"
+                required
+                maxlength="100"
+              />
+              <div class="form-hint">Max 100 characters</div>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label-custom" for="description">
+                <i class="bi bi-text-paragraph me-1"></i>Description
+              </label>
+              <textarea
+                id="description"
+                name="description"
+                class="form-control form-control-custom"
+                rows="3"
+                placeholder="Describe the task in detail (optional)"
+                maxlength="300"
+              ></textarea>
+              <div class="form-hint">Max 300 characters</div>
+            </div>
+
+            <div class="mb-5">
+              <label class="form-label-custom" for="priority">
+                <i class="bi bi-flag me-1"></i>Priority Level
+              </label>
+              <select id="priority" name="priority" class="form-select form-control-custom">
+                <option value="Low">🔽 Low Priority</option>
+                <option value="Medium" selected>➡️ Medium Priority</option>
+                <option value="High">🔼 High Priority</option>
+              </select>
+            </div>
+
+            <div class="form-actions">
+              <a href="/" class="btn btn-ghost-custom">
+                <i class="bi bi-arrow-left me-2"></i>Cancel
+              </a>
+              <button type="submit" class="btn btn-primary-custom">
+                <i class="bi bi-plus-lg me-2"></i>Add Task
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,22 @@
+  <div class="footer-bar">
+    <div class="container-fluid px-4">
+      <span><i class="bi bi-check2-circle me-1"></i>TaskFlow &copy; 2025 — Real-Time Todo Management System</span>
+      <span class="footer-right">Built with Node.js &amp; Express.js</span>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <script>
+    setTimeout(() => {
+      const a = document.querySelector('.auto-alert');
+      if (a) { a.style.opacity = '0'; setTimeout(() => a.remove(), 400); }
+    }, 3500);
+
+    document.querySelectorAll('.btn-delete-form').forEach(f => {
+      f.addEventListener('submit', function(e) {
+        if (!confirm('Delete this task? This cannot be undone.')) e.preventDefault();
+      });
+    });
+  </script>
+</body>
+</html>
